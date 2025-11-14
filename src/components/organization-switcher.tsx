@@ -70,8 +70,8 @@ export async function OrganizationSwitcher() {
             <div
               className="flex items-center justify-center mr-2"
               style={{
-                width: 'calc(var(--spacing) * 5)',
-                height: 'calc(var(--spacing) * 5)'
+                height: 'calc(var(--spacing) * 5)',
+                width: 'calc(var(--spacing) * 5)'
               }}
             >
               <PlusCircle className="size-4" />

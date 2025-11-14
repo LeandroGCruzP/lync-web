@@ -10,7 +10,7 @@ import { Label } from '~/components/ui/label'
 import { useFormState } from '~/hook/use-form-state'
 
 export function SignUpForm() {
-  const [{ success, message, errors }, handleSubmit, isPending] =
+  const [{ errors, message, success }, handleSubmit, isPending] =
     useFormState(signUpAction)
 
   return (

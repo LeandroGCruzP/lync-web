@@ -12,7 +12,7 @@ export async function createInviteAction(data: FormData): Promise<ActionResponse
   if (!parsedData.success) {
     const errors = parsedData.error.flatten().fieldErrors
 
-    return { success: false, message: null, errors }
+    return { errors, message: null, success: false }
   }
 
   const { email, role } = parsedData.data
@@ -31,21 +31,21 @@ export async function createInviteAction(data: FormData): Promise<ActionResponse
     if (err instanceof HTTPError) {
       const { message } = await err.response.json()
 
-      return { success: false, message, errors: null }
+      return { errors: null, message, success: false }
     }
 
     console.error(err)
 
     return {
-      success: false,
-      message: 'Unexpected error, try again in a few minutes',
       errors: null,
+      message: 'Unexpected error, try again in a few minutes',
+      success: false,
     }
   }
 
   return {
-    success: true,
-    message: 'Invite created successfully',
     errors: null,
+    message: 'Invite created successfully',
+    success: true,
   }
 }

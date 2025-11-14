@@ -14,7 +14,7 @@ export async function signInWithEmailAction(data: FormData): Promise<ActionRespo
   if (!parsedData.success) {
     const errors = parsedData.error.flatten().fieldErrors
 
-    return { success: false, message: null, errors }
+    return { errors, message: null, success: false }
   }
 
   const { email, password } = parsedData.data
@@ -27,8 +27,8 @@ export async function signInWithEmailAction(data: FormData): Promise<ActionRespo
 
     const cookiesStore = await cookies()
     cookiesStore.set('token', token, {
-      path: '/',
       maxAge: 60 * 60 * 24 * 7, // 7 days
+      path: '/',
     })
 
     const inviteId = cookiesStore.get('inviteId')?.value
@@ -44,15 +44,15 @@ export async function signInWithEmailAction(data: FormData): Promise<ActionRespo
     if (isAPIError) {
       const { message } = await err.response.json()
 
-      return { success: false, message, errors: null }
+      return { errors: null, message, success: false }
     }
 
     console.error(err)
 
     return {
-      success: false,
-      message: 'Unexpected error, try again in a few minutes',
       errors: null,
+      message: 'Unexpected error, try again in a few minutes',
+      success: false,
     }
   }
 

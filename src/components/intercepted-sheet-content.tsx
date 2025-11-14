@@ -11,8 +11,8 @@ interface InterceptedSheetContentProps extends React.ComponentProps<typeof Sheet
 }
 
 export function InterceptedSheetContent({
-  className,
   children,
+  className,
   side = "right",
   ...props
 }: InterceptedSheetContentProps) {

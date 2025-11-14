@@ -2,13 +2,13 @@ import z from "zod"
 
 export const createOrganizationSchema = z
   .object({
-    name: z.string().min(3, { message: 'Name should be at least 3 characters long.' }),
     domain: z.string().nullable().refine((value) => {
       if (!value) return true
 
       const domainRegex = /^(?!:\/\/)([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]{2,11}?$/
       return domainRegex.test(value)
     }, { message: 'Invalid domain format.' }),
+    name: z.string().min(3, { message: 'Name should be at least 3 characters long.' }),
     shouldAttachUsersByDomain: z
       .union([z.literal('on'), z.literal('off'), z.boolean()])
       .transform(value => value === true || value === 'on')

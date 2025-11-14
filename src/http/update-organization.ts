@@ -4,8 +4,8 @@ import { api } from '~/lib/api-client'
 export async function updateOrganization(orgSlug: string, data: UpdateOrganizationData): Promise<void> {
   await api.put(`organizations/${orgSlug}`, {
     json: {
-      name: data.name,
       domain: data.domain,
+      name: data.name,
       shouldAttachUsersByDomain: data.shouldAttachUsersByDomain,
     },
   })

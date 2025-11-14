@@ -15,8 +15,8 @@ export async function updateMemberAction(memberId: string, role: Role): Promise<
   await updateMember(orgSlug, memberId, { role })
 
   return {
-    success: true,
-    message: 'Member updated successfully',
     errors: null,
+    message: 'Member updated successfully',
+    success: true,
   }
 }

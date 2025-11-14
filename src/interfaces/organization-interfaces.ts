@@ -2,15 +2,15 @@ import { z } from 'zod'
 import { createOrganizationSchema } from '~/schemas/organization-schemas'
 
 export type Organization = {
-  id: string
-  name: string
-  slug: string
-  domain: string | null
-  shouldAttachUsersByDomain: boolean
   avatarUrl: string | null
   createdAt: string
-  updatedAt: string
+  domain: string | null
+  id: string
+  name: string
   ownerId: string
+  shouldAttachUsersByDomain: boolean
+  slug: string
+  updatedAt: string
 }
 
 export type CreateOrganizationData = z.infer<typeof createOrganizationSchema>

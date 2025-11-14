@@ -19,9 +19,9 @@ export function PendingInvites() {
   const [isOpen, setIsOpen] = useState(false)
 
   const { data } = useQuery({
-    queryKey: ['pending-invites'],
-    queryFn: getUserAuthPendingInvites,
     enabled: isOpen,
+    queryFn: getUserAuthPendingInvites,
+    queryKey: ['pending-invites'],
   })
 
   async function handleAcceptInvite(inviteId: string) {

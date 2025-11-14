@@ -13,7 +13,7 @@ import { useFormState } from '~/hook/use-form-state'
 export function SignInForm() {
   const searchParams = useSearchParams()
 
-  const [{ success, message, errors }, handleSubmit, isPending] = useFormState(
+  const [{ errors, message, success }, handleSubmit, isPending] = useFormState(
     signInWithEmailAction
   )
 

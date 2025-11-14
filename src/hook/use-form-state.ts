@@ -9,9 +9,9 @@ export function useFormState(
   const [isPending, startTransition] = useTransition()
   const [formState, setFormState] = useState<FormState>(
     initialState ?? {
-      success: false,
-      message: null,
       errors: null,
+      message: null,
+      success: false,
     },
   )
 

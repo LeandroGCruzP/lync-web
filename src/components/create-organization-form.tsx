@@ -12,13 +12,13 @@ import { useFormState } from '~/hook/use-form-state'
 import type { CreateOrganizationData } from '~/interfaces/organization-interfaces'
 
 interface OrganizationFormProps {
-  isUpdating?: boolean
   initialData?: CreateOrganizationData
+  isUpdating?: boolean
 }
 
-export function CreateOrganizationForm({ isUpdating = false, initialData }: OrganizationFormProps) {
+export function CreateOrganizationForm({ initialData, isUpdating = false }: OrganizationFormProps) {
   const formAction = isUpdating ? updateOrganizationAction : createOrganizationAction
-  const [{ success, message, errors }, handleSubmit, isPending] = useFormState(
+  const [{ errors, message, success }, handleSubmit, isPending] = useFormState(
     formAction
   )
 

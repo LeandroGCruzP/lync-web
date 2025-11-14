@@ -29,8 +29,8 @@ export default async function SettingsPage() {
               <CreateOrganizationForm
                 isUpdating
                 initialData={{
-                  name: organization.name,
                   domain: organization.domain,
+                  name: organization.name,
                   shouldAttachUsersByDomain: organization.shouldAttachUsersByDomain,
                 }} />
             </CardContent>

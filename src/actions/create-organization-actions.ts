@@ -11,36 +11,36 @@ export async function createOrganizationAction(data: FormData): Promise<ActionRe
   if (!parsedData.success) {
     const errors = parsedData.error.flatten().fieldErrors
 
-    return { success: false, message: null, errors }
+    return { errors, message: null, success: false }
   }
 
-  const { name, domain, shouldAttachUsersByDomain } = parsedData.data
+  const { domain, name, shouldAttachUsersByDomain } = parsedData.data
 
   try {
     await createOrganization({
-      name,
       domain,
+      name,
       shouldAttachUsersByDomain,
     })
   } catch (err) {
     if (err instanceof HTTPError) {
       const { message } = await err.response.json()
 
-      return { success: false, message, errors: null }
+      return { errors: null, message, success: false }
     }
 
     console.error(err)
 
     return {
-      success: false,
-      message: 'Unexpected error, try again in a few minutes',
       errors: null,
+      message: 'Unexpected error, try again in a few minutes',
+      success: false,
     }
   }
 
   return {
-    success: true,
-    message: 'Organization created successfully',
     errors: null,
+    message: 'Organization created successfully',
+    success: true,
   }
 }

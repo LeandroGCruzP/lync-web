@@ -3,7 +3,6 @@
 import * as SheetPrimitive from "@radix-ui/react-dialog"
 import { XIcon } from "lucide-react"
 import * as React from "react"
-
 import { cn } from "~/lib/utils"
 
 function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
@@ -45,8 +44,8 @@ function SheetOverlay({
 }
 
 function SheetContent({
-  className,
   children,
+  className,
   side = "right",
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {

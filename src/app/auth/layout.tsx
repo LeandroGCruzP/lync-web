@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation'
 import { ReactNode } from 'react'
-
 import { isAuthenticated } from '~/auth/auth'
 
 interface AuthLayoutProps {
