@@ -8,21 +8,21 @@ import { Separator } from './ui/separator'
 
 export async function Header() {
   return (
-    <div className='mx-auto flex max-w-[1200px] items-center justify-between'>
-      <div className='flex items-center gap-3'>
-        <Link href='/'>
-          <span className='font-bold'>Lync</span>
+    <div className="mx-auto flex max-w-[1200px] items-center justify-between">
+      <div className="flex items-center gap-3">
+        <Link href="/">
+          <span className="font-bold">Lync</span>
         </Link>
 
-        <Slash className='size-3 -rotate-45 text-border' />
+        <Slash className="text-border size-3 -rotate-45" />
 
         <OrganizationSwitcher />
       </div>
 
-      <div className='flex items-center gap-4'>
+      <div className="flex items-center gap-4">
         <PendingInvites />
         <ThemeSwitcher />
-        <Separator orientation='vertical' className='h-5' />
+        <Separator orientation="vertical" className="h-5" />
         <ProfileButton />
       </div>
     </div>

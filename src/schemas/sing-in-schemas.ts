@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from 'zod'
 
 export const signInWithEmailSchema = z.object({
   email: z.email({ message: 'Please, provide a valid e-mail address' }),

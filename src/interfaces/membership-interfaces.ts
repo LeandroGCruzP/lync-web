@@ -1,4 +1,4 @@
-import type { Role } from "./role-interfaces"
+import type { Role } from './role-interfaces'
 
 export type Membership = {
   avatarUrl: string | null

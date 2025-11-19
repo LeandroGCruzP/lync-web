@@ -1,5 +1,5 @@
-import type { Invite } from '~/interfaces/invite-interfaces';
-import { api } from '~/lib/api-client';
+import type { Invite } from '~/interfaces/invite-interfaces'
+import { api } from '~/lib/api-client'
 
 export type Response = {
   invites: Invite[]

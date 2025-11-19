@@ -1,9 +1,9 @@
-import { ability, getCurrentOrgSlug } from "~/auth/auth"
-import { getInvites } from "~/http/get-invites"
-import { CreateInviteForm } from "./create-invite-form"
-import { RevokeInviteButton } from "./revoke-invite-button"
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
-import { Table, TableBody, TableCell, TableRow } from "./ui/table"
+import { ability, getCurrentOrgSlug } from '~/auth/auth'
+import { getInvites } from '~/http/get-invites'
+import { CreateInviteForm } from './create-invite-form'
+import { RevokeInviteButton } from './revoke-invite-button'
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import { Table, TableBody, TableCell, TableRow } from './ui/table'
 
 export async function Invites() {
   const orgSlug = await getCurrentOrgSlug()
@@ -34,7 +34,9 @@ export async function Invites() {
               return (
                 <TableRow key={invite.id}>
                   <TableCell className="py-2.5">
-                    <span className="text-muted-foreground">{invite.email}</span>
+                    <span className="text-muted-foreground">
+                      {invite.email}
+                    </span>
                   </TableCell>
                   <TableCell className="py-2.5 font-medium">
                     {invite.role}
@@ -52,7 +54,7 @@ export async function Invites() {
 
             {invites.length === 0 && (
               <TableRow>
-                <TableCell className="py-4 text-center text-muted-foreground">
+                <TableCell className="text-muted-foreground py-4 text-center">
                   No invites found
                 </TableCell>
               </TableRow>

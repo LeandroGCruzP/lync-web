@@ -1,4 +1,4 @@
-import z from 'zod'
+import { z } from 'zod'
 import { inviteSubject } from '~/subjects/invite'
 import { organizationSubject } from '~/subjects/organization'
 import { userSubject } from '~/subjects/user'

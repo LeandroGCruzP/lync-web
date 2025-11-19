@@ -1,12 +1,14 @@
 'use server'
 
-import { HTTPError } from "ky";
-import { getCurrentOrgSlug } from '~/auth/auth';
-import { updateOrganization } from '~/http/update-organization';
-import { createOrganizationSchema } from '~/schemas/organization-schemas';
+import { HTTPError } from 'ky'
+import { getCurrentOrgSlug } from '~/auth/auth'
+import { updateOrganization } from '~/http/update-organization'
+import { createOrganizationSchema } from '~/schemas/organization-schemas'
 
 export async function updateOrganizationAction(data: FormData) {
-  const parsedData = createOrganizationSchema.safeParse(Object.fromEntries(data))
+  const parsedData = createOrganizationSchema.safeParse(
+    Object.fromEntries(data),
+  )
 
   if (!parsedData.success) {
     const errors = parsedData.error.flatten().fieldErrors

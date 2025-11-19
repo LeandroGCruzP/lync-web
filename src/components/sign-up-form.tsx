@@ -14,10 +14,10 @@ export function SignUpForm() {
     useFormState(signUpAction)
 
   return (
-    <div className='space-y-4'>
+    <div className="space-y-4">
       {success === false && message && (
-        <Alert variant='destructive'>
-          <AlertTriangle className='size-4' />
+        <Alert variant="destructive">
+          <AlertTriangle className="size-4" />
           <AlertTitle>Sign in failed</AlertTitle>
           <AlertDescription>
             <p>{message}</p>
@@ -25,65 +25,65 @@ export function SignUpForm() {
         </Alert>
       )}
 
-      <form onSubmit={handleSubmit} className='space-y-4'>
-        <div className='space-y-1'>
-          <Label htmlFor='name'>Name</Label>
-          <Input name='name' type='text' id='name' />
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-1">
+          <Label htmlFor="name">Name</Label>
+          <Input name="name" type="text" id="name" />
 
           {errors?.name && (
-            <p className='text-xs font-medium text-red-500 dark:text-red-400'>
+            <p className="text-xs font-medium text-red-500 dark:text-red-400">
               {errors.name[0]}
             </p>
           )}
         </div>
 
-        <div className='space-y-1'>
-          <Label htmlFor='email'>E-mail</Label>
-          <Input name='email' type='email' id='email' />
+        <div className="space-y-1">
+          <Label htmlFor="email">E-mail</Label>
+          <Input name="email" type="email" id="email" />
 
           {errors?.email && (
-            <p className='text-xs font-medium text-red-500 dark:text-red-400'>
+            <p className="text-xs font-medium text-red-500 dark:text-red-400">
               {errors.email[0]}
             </p>
           )}
         </div>
 
-        <div className='space-y-1'>
-          <Label htmlFor='password'>Password</Label>
-          <Input name='password' type='password' id='password' />
+        <div className="space-y-1">
+          <Label htmlFor="password">Password</Label>
+          <Input name="password" type="password" id="password" />
 
           {errors?.password && (
-            <p className='text-xs font-medium text-red-500 dark:text-red-400'>
+            <p className="text-xs font-medium text-red-500 dark:text-red-400">
               {errors.password[0]}
             </p>
           )}
         </div>
 
-        <div className='space-y-1'>
-          <Label htmlFor='password_confirmation'>Confirm your password</Label>
+        <div className="space-y-1">
+          <Label htmlFor="password_confirmation">Confirm your password</Label>
           <Input
-            name='password_confirmation'
-            type='password'
-            id='password_confirmation'
+            name="password_confirmation"
+            type="password"
+            id="password_confirmation"
           />
 
           {errors?.password_confirmation && (
-            <p className='text-xs font-medium text-red-500 dark:text-red-400'>
+            <p className="text-xs font-medium text-red-500 dark:text-red-400">
               {errors.password_confirmation[0]}
             </p>
           )}
         </div>
 
-        <Button type='submit' className='w-full' disabled={isPending}>
+        <Button type="submit" className="w-full" disabled={isPending}>
           {isPending ? (
-            <Loader2 className='size-4 animate-spin' />
+            <Loader2 className="size-4 animate-spin" />
           ) : (
             'Create account'
           )}
         </Button>
 
-        <Button variant='link' className='w-full' size='sm' asChild>
-          <Link href='/auth/sign-in'>Already registered? Sign in</Link>
+        <Button variant="link" className="w-full" size="sm" asChild>
+          <Link href="/auth/sign-in">Already registered? Sign in</Link>
         </Button>
       </form>
     </div>

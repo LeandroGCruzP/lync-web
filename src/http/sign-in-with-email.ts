@@ -5,11 +5,15 @@ interface Response {
   token: string
 }
 
-export async function signInWithEmail(data: SignInWithEmailData): Promise<Response> {
-  return await api.post('sessions/password', {
-    json: {
-      email: data.email,
-      password: data.password,
-    }
-  }).json<Response>()
+export async function signInWithEmail(
+  data: SignInWithEmailData,
+): Promise<Response> {
+  return await api
+    .post('sessions/password', {
+      json: {
+        email: data.email,
+        password: data.password,
+      },
+    })
+    .json<Response>()
 }

@@ -1,6 +1,6 @@
-import { ability, getCurrentOrgSlug } from "~/auth/auth";
-import { NavLink } from "./nav-link";
-import { Button } from "./ui/button";
+import { ability, getCurrentOrgSlug } from '~/auth/auth'
+import { NavLink } from './nav-link'
+import { Button } from './ui/button'
 
 export async function Tabs() {
   const orgSlug = await getCurrentOrgSlug()
@@ -15,9 +15,9 @@ export async function Tabs() {
         {canGetMembers && (
           <Button
             asChild
-            variant='ghost'
-            size='sm'
-            className="border border-transparent text-muted-foreground data-[current=true]:text-foreground data-[current=true]:border-border"
+            variant="ghost"
+            size="sm"
+            className="text-muted-foreground data-[current=true]:text-foreground data-[current=true]:border-border border border-transparent"
           >
             <NavLink href={`/org/${orgSlug}/members`}>Members</NavLink>
           </Button>
@@ -25,9 +25,9 @@ export async function Tabs() {
         {canUpdateOrg && (
           <Button
             asChild
-            variant='ghost'
-            size='sm'
-            className="border border-transparent text-muted-foreground data-[current=true]:text-foreground data-[current=true]:border-border"
+            variant="ghost"
+            size="sm"
+            className="text-muted-foreground data-[current=true]:text-foreground data-[current=true]:border-border border border-transparent"
           >
             <NavLink href={`/org/${orgSlug}/settings`}>Settings</NavLink>
           </Button>

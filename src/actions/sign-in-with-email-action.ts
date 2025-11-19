@@ -8,7 +8,9 @@ import { signInWithEmail } from '~/http/sign-in-with-email'
 import type { ActionResponse } from '~/interfaces/actions-interfaces'
 import { signInWithEmailSchema } from '~/schemas/sing-in-schemas'
 
-export async function signInWithEmailAction(data: FormData): Promise<ActionResponse> {
+export async function signInWithEmailAction(
+  data: FormData,
+): Promise<ActionResponse> {
   const parsedData = signInWithEmailSchema.safeParse(Object.fromEntries(data))
 
   if (!parsedData.success) {

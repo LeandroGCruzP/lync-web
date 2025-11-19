@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
-import { ReactNode } from "react";
-import "./globals.css";
-import { Providers } from "./providers";
+import type { Metadata } from 'next'
+import { ReactNode } from 'react'
+import './globals.css'
+import { Providers } from './providers'
 
 export const metadata: Metadata = {
-  description: "Sports social network",
-  title: "Lync",
-};
+  description: 'Sports social network',
+  title: 'Lync',
+}
 
 interface RootLayoutProps {
   children: ReactNode
@@ -19,5 +19,5 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Providers>{children}</Providers>
       </body>
     </html>
-  );
+  )
 }

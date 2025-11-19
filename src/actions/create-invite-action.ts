@@ -6,7 +6,9 @@ import { createInvite } from '~/http/create-invite'
 import type { ActionResponse } from '~/interfaces/actions-interfaces'
 import { createInviteSchema } from '~/schemas/invite-schemas'
 
-export async function createInviteAction(data: FormData): Promise<ActionResponse> {
+export async function createInviteAction(
+  data: FormData,
+): Promise<ActionResponse> {
   const parsedData = createInviteSchema.safeParse(Object.fromEntries(data))
 
   if (!parsedData.success) {

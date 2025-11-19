@@ -1,15 +1,15 @@
-import { ArrowLeftRight, Crown, UserMinus } from "lucide-react"
-import Image from "next/image"
-import { removeMemberAction } from "~/actions/remove-member-action"
-import { ability, getCurrentOrgSlug } from "~/auth/auth"
-import { getMembers } from "~/http/get-members"
-import { getMembership } from "~/http/get-membership"
-import { getOrganization } from "~/http/get-organization"
-import { organizationAuthSchema } from "~/schemas/organization-schemas"
-import { Avatar, AvatarFallback } from "./ui/avatar"
-import { Button } from "./ui/button"
-import { Table, TableBody, TableCell, TableRow } from "./ui/table"
-import { UpdateMemberRoleSelect } from "./update-member-role-select"
+import { ArrowLeftRight, Crown, UserMinus } from 'lucide-react'
+import Image from 'next/image'
+import { removeMemberAction } from '~/actions/remove-member-action'
+import { ability, getCurrentOrgSlug } from '~/auth/auth'
+import { getMembers } from '~/http/get-members'
+import { getMembership } from '~/http/get-membership'
+import { getOrganization } from '~/http/get-organization'
+import { organizationAuthSchema } from '~/schemas/organization-schemas'
+import { Avatar, AvatarFallback } from './ui/avatar'
+import { Button } from './ui/button'
+import { Table, TableBody, TableCell, TableRow } from './ui/table'
+import { UpdateMemberRoleSelect } from './update-member-role-select'
 
 export async function MemberList() {
   const orgSlug = await getCurrentOrgSlug()
@@ -18,7 +18,7 @@ export async function MemberList() {
   const [{ membership }, { members }, { organization }] = await Promise.all([
     getMembership(orgSlug!),
     getMembers(orgSlug!),
-    getOrganization(orgSlug!)
+    getOrganization(orgSlug!),
   ])
 
   const authOrganization = organizationAuthSchema.parse(organization)
@@ -31,7 +31,9 @@ export async function MemberList() {
         <Table>
           <TableBody>
             {members.map((member) => {
-              const isOwnerOrSelf = member.userId === organization.ownerId || member.userId === membership.userId
+              const isOwnerOrSelf =
+                member.userId === organization.ownerId ||
+                member.userId === membership.userId
 
               return (
                 <TableRow key={member.id}>
@@ -51,26 +53,33 @@ export async function MemberList() {
                   </TableCell>
                   <TableCell className="py-2.5">
                     <div className="flex flex-col">
-                      <span className="font-medium inline-flex items-center gap-2">
+                      <span className="inline-flex items-center gap-2 font-medium">
                         {member.name}
                         {member.userId === membership.userId && ' (me)'}
                         {member.userId === organization.ownerId && (
-                          <span className="inline-flex items-center gap-1 text-sx text-muted-foreground">
+                          <span className="text-sx text-muted-foreground inline-flex items-center gap-1">
                             <Crown className="size-3" />
                             Owner
                           </span>
                         )}
                       </span>
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-muted-foreground text-xs">
                         {member.email}
                       </span>
                     </div>
                   </TableCell>
                   <TableCell className="py-2.5">
                     <div className="flex items-center justify-end gap-2">
-                      {permissions?.can('transfer_ownership', authOrganization) && (
-                        <Button variant='ghost' size='sm' disabled={isOwnerOrSelf}>
-                          <ArrowLeftRight className="size-4 mr-2" />
+                      {permissions?.can(
+                        'transfer_ownership',
+                        authOrganization,
+                      ) && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          disabled={isOwnerOrSelf}
+                        >
+                          <ArrowLeftRight className="mr-2 size-4" />
                           Transfer Ownership
                         </Button>
                       )}
@@ -78,13 +87,19 @@ export async function MemberList() {
                       <UpdateMemberRoleSelect
                         memberId={member.id}
                         value={member.role}
-                        disabled={isOwnerOrSelf || permissions?.cannot('update', 'User')}
+                        disabled={
+                          isOwnerOrSelf || permissions?.cannot('update', 'User')
+                        }
                       />
 
                       {permissions?.can('delete', 'User') && (
                         <form action={removeMemberAction.bind(null, member.id)}>
-                          <Button variant='destructive' size='sm' disabled={isOwnerOrSelf}>
-                            <UserMinus className="size-4 mr-2" />
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            disabled={isOwnerOrSelf}
+                          >
+                            <UserMinus className="mr-2 size-4" />
                             Remove
                           </Button>
                         </form>

@@ -5,8 +5,12 @@ import { createOrganization } from '~/http/create-organization'
 import type { ActionResponse } from '~/interfaces/actions-interfaces'
 import { createOrganizationSchema } from '~/schemas/organization-schemas'
 
-export async function createOrganizationAction(data: FormData): Promise<ActionResponse> {
-  const parsedData = createOrganizationSchema.safeParse(Object.fromEntries(data))
+export async function createOrganizationAction(
+  data: FormData,
+): Promise<ActionResponse> {
+  const parsedData = createOrganizationSchema.safeParse(
+    Object.fromEntries(data),
+  )
 
   if (!parsedData.success) {
     const errors = parsedData.error.flatten().fieldErrors

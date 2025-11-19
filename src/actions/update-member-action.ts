@@ -1,11 +1,14 @@
 'use server'
 
-import { getCurrentOrgSlug } from "~/auth/auth"
-import { updateMember } from "~/http/update-member"
-import type { ActionResponse } from "~/interfaces/actions-interfaces"
-import type { Role } from "~/interfaces/role-interfaces"
+import { getCurrentOrgSlug } from '~/auth/auth'
+import { updateMember } from '~/http/update-member'
+import type { ActionResponse } from '~/interfaces/actions-interfaces'
+import type { Role } from '~/interfaces/role-interfaces'
 
-export async function updateMemberAction(memberId: string, role: Role): Promise<ActionResponse> {
+export async function updateMemberAction(
+  memberId: string,
+  role: Role,
+): Promise<ActionResponse> {
   const orgSlug = await getCurrentOrgSlug()
 
   if (!orgSlug) {

@@ -9,12 +9,12 @@ interface ProvidersProps {
   children: ReactNode
 }
 
-export function Providers ({ children }: ProvidersProps) {
+export function Providers({ children }: ProvidersProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider
-        attribute='class'
-        defaultTheme='dark'
+        attribute="class"
+        defaultTheme="dark"
         disableTransitionOnChange
       >
         {children}

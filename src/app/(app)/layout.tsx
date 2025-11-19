@@ -12,8 +12,10 @@ export default async function AppLayout({ children, sheet }: AuthLayoutProps) {
     redirect('/auth/sign-in')
   }
 
-  return <>
-    {children}
-    {sheet}
-  </>
+  return (
+    <>
+      {children}
+      {sheet}
+    </>
+  )
 }

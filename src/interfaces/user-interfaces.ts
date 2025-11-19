@@ -1,5 +1,5 @@
-import z from "zod"
-import { userSchema } from "~/schemas/user-schemas"
+import { z } from 'zod'
+import { userSchema } from '~/schemas/user-schemas'
 
 export type User = {
   avatarUrl: string | null
@@ -9,4 +9,3 @@ export type User = {
 }
 
 export type UserSchema = z.infer<typeof userSchema>
-

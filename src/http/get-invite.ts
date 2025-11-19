@@ -6,7 +6,5 @@ interface Response {
 }
 
 export async function getInvite(inviteId: string): Promise<Response> {
-  return await api
-    .get(`invites/${inviteId}`)
-    .json<Response>()
+  return await api.get(`invites/${inviteId}`).json<Response>()
 }

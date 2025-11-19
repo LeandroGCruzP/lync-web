@@ -6,7 +6,5 @@ interface Response {
 }
 
 export async function getOrganization(orgSlug: string): Promise<Response> {
-  return await api
-    .get(`organizations/${orgSlug}`)
-    .json<Response>()
+  return await api.get(`organizations/${orgSlug}`).json<Response>()
 }

@@ -1,7 +1,7 @@
 import {
   AbilityBuilder,
   type CreateAbility,
-  createMongoAbility
+  createMongoAbility,
 } from '@casl/ability'
 import type { AppAbility } from '~/interfaces/abilities-interfaces'
 import type { UserSchema } from '~/interfaces/user-interfaces'

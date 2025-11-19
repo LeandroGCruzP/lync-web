@@ -1,7 +1,7 @@
 'use server'
 
-import { getCurrentOrgSlug } from "~/auth/auth"
-import { revokeInvite } from "~/http/revoke-invite"
+import { getCurrentOrgSlug } from '~/auth/auth'
+import { revokeInvite } from '~/http/revoke-invite'
 
 export async function revokeInviteAction(inviteId: string): Promise<void> {
   const orgSlug = await getCurrentOrgSlug()
