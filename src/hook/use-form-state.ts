@@ -26,7 +26,9 @@ export function useFormState(
 
       setFormState(state)
 
-      form.reset()
+      if (state.success) {
+        form.reset()
+      }
     })
   }
 
