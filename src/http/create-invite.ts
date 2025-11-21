@@ -5,7 +5,7 @@ export async function createInvite(
   orgSlug: string,
   data: CreateInviteData,
 ): Promise<void> {
-  await api.post(`organizations/${orgSlug}/invites`, {
+  await api.post(`organizations/${orgSlug}/member-invites`, {
     json: {
       email: data.email,
       role: data.role,

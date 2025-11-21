@@ -3,9 +3,8 @@
 import { redirect } from 'next/navigation'
 import { getCurrentOrgSlug } from '~/auth/auth'
 import { shutdownOrganization } from '~/http/shutdown-organization'
-import type { ActionResponse } from '~/interfaces/actions-interfaces'
 
-export async function shutdownOrganizationAction(): Promise<ActionResponse> {
+export async function shutdownOrganizationAction(): Promise<void> {
   const orgSlug = await getCurrentOrgSlug()
 
   if (!orgSlug) {

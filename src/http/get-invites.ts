@@ -9,5 +9,7 @@ interface Response {
 }
 
 export async function getInvites(orgSlug: string): Promise<Response> {
-  return await api.get(`organizations/${orgSlug}/invites`).json<Response>()
+  return await api
+    .get(`organizations/${orgSlug}/member-invites`)
+    .json<Response>()
 }
