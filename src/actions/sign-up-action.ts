@@ -4,7 +4,7 @@ import { HTTPError } from 'ky'
 import { redirect } from 'next/navigation'
 import { signUp } from '~/http/sign-up'
 import type { ActionResponse } from '~/interfaces/actions-interfaces'
-import { signUpSchema } from '~/schemas/sign-uo-schemas'
+import { signUpSchema } from '~/schemas/sign-up-schemas'
 
 export async function signUpAction(data: FormData): Promise<ActionResponse> {
   const parsedData = signUpSchema.safeParse(Object.fromEntries(data))
