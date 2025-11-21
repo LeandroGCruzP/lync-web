@@ -8,7 +8,7 @@ interface Response {
   })[]
 }
 
-export async function getInvites(orgSlug: string): Promise<Response> {
+export async function getMemberInvites(orgSlug: string): Promise<Response> {
   return await api
     .get(`organizations/${orgSlug}/member-invites`)
     .json<Response>()

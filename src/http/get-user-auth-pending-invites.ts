@@ -6,5 +6,5 @@ export type Response = {
 }
 
 export async function getUserAuthPendingInvites(): Promise<Response> {
-  return await api.get('pending-invites').json<Response>()
+  return await api.get('pending-member-invites').json<Response>()
 }

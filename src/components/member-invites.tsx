@@ -1,5 +1,5 @@
 import { ability, getCurrentOrgSlug } from '~/auth/auth'
-import { getInvites } from '~/http/get-invites'
+import { getMemberInvites } from '~/http/get-member-invites'
 import { CreateInviteForm } from './create-invite-form'
 import { RevokeInviteButton } from './revoke-invite-button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
@@ -9,11 +9,11 @@ export async function Invites() {
   const orgSlug = await getCurrentOrgSlug()
   const permissions = await ability()
 
-  const { invites } = await getInvites(orgSlug!)
+  const { invites } = await getMemberInvites(orgSlug!)
 
   return (
     <div className="space-y-4">
-      {permissions?.can('create', 'Invite') && (
+      {permissions?.can('create', 'MemberInvite') && (
         <Card>
           <CardHeader>
             <CardTitle>Invite member</CardTitle>
@@ -43,7 +43,7 @@ export async function Invites() {
                   </TableCell>
                   <TableCell className="py-2.5">
                     <div className="flex justify-end">
-                      {permissions?.can('delete', 'Invite') && (
+                      {permissions?.can('delete', 'MemberInvite') && (
                         <RevokeInviteButton inviteId={invite.id} />
                       )}
                     </div>

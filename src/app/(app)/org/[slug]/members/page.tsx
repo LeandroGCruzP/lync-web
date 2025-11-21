@@ -1,5 +1,5 @@
 import { ability } from '~/auth/auth'
-import { Invites } from '~/components/invites'
+import { Invites } from '~/components/member-invites'
 import { MemberList } from '~/components/member-list'
 
 export default async function MembersPage() {
@@ -10,7 +10,7 @@ export default async function MembersPage() {
       <h1 className="text-2xl font-bold">Members</h1>
 
       <div className="space-y-4">
-        {permissions?.can('get', 'Invite') && <Invites />}
+        {permissions?.can('get', 'MemberInvite') && <Invites />}
         {permissions?.can('get', 'User') && <MemberList />}
       </div>
     </div>

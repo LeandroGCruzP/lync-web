@@ -8,7 +8,7 @@ import { auth, isAuthenticated } from '~/auth/auth'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 import { Button } from '~/components/ui/button'
 import { Separator } from '~/components/ui/separator'
-import { getInvite } from '~/http/get-invite'
+import { getMemberInvite } from '~/http/get-member-invite'
 
 dayjs.extend(relativeTime)
 
@@ -21,7 +21,7 @@ interface InvitePageProps {
 export default async function InvitePage({ params }: InvitePageProps) {
   const inviteId = params.id
 
-  const { invite } = await getInvite(inviteId)
+  const { invite } = await getMemberInvite(inviteId)
 
   const isUserAuthenticated = await isAuthenticated()
 
