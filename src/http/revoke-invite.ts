@@ -4,5 +4,5 @@ export async function revokeInvite(
   orgSlug: string,
   inviteId: string,
 ): Promise<void> {
-  await api.delete(`organizations/${orgSlug}/invites/${inviteId}`)
+  await api.delete(`organizations/${orgSlug}/member-invites/${inviteId}`)
 }
