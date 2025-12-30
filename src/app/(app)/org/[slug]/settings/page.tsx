@@ -9,15 +9,18 @@ import {
   CardTitle,
 } from '~/components/ui/card'
 import { getOrganization } from '~/http/get-organization'
+import { organizationAuthSchema } from '~/schemas/organization-schemas'
 
 export default async function SettingsPage() {
   const orgSlug = await getCurrentOrgSlug()
   const permissions = await ability()
 
-  const canUpdateOrg = permissions?.can('update', 'Organization')
-  const canShutdownOrg = permissions?.can('delete', 'Organization')
-
   const { organization } = await getOrganization(orgSlug!)
+  
+  const authOrg = organizationAuthSchema.parse(organization)
+  
+  const canUpdateOrg = permissions?.can('update', 'Organization')
+  const canShutdownOrg = permissions?.can('delete', authOrg)
 
   return (
     <div className="space-y-4">

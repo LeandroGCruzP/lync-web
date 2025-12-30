@@ -1,7 +1,7 @@
 'use server'
 
 import { getCurrentOrgSlug } from '~/auth/auth'
-import { updateMember } from '~/http/update-member'
+import { updateMemberRole } from '~/http/update-member-role'
 import type { ActionResponse } from '~/interfaces/actions-interfaces'
 import type { Role } from '~/interfaces/role-interfaces'
 
@@ -15,7 +15,7 @@ export async function updateMemberAction(
     throw new Error('No organization selected')
   }
 
-  await updateMember(orgSlug, memberId, { role })
+  await updateMemberRole(orgSlug, memberId, { role })
 
   return {
     errors: null,

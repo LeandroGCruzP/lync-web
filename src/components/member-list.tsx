@@ -21,7 +21,11 @@ export async function MemberList() {
     getOrganization(orgSlug!),
   ])
 
-  const authOrganization = organizationAuthSchema.parse(organization)
+  const authOrg = organizationAuthSchema.parse(organization)
+
+  const canTransferOwnershipOrg = permissions?.can('transfer_ownership', authOrg )
+  const canRemoveUserOrg = permissions?.can('delete', 'User')
+  const cannotUpdateUserOrg = permissions?.cannot('update', 'User')
 
   return (
     <div className="space-y-2">
@@ -70,10 +74,7 @@ export async function MemberList() {
                   </TableCell>
                   <TableCell className="py-2.5">
                     <div className="flex items-center justify-end gap-2">
-                      {permissions?.can(
-                        'transfer_ownership',
-                        authOrganization,
-                      ) && (
+                      {canTransferOwnershipOrg && (
                         <Button
                           variant="ghost"
                           size="sm"
@@ -87,12 +88,10 @@ export async function MemberList() {
                       <UpdateMemberRoleSelect
                         memberId={member.id}
                         value={member.role}
-                        disabled={
-                          isOwnerOrSelf || permissions?.cannot('update', 'User')
-                        }
+                        disabled={isOwnerOrSelf || cannotUpdateUserOrg}
                       />
 
-                      {permissions?.can('delete', 'User') && (
+                      {canRemoveUserOrg && (
                         <form action={removeMemberAction.bind(null, member.id)}>
                           <Button
                             variant="destructive"

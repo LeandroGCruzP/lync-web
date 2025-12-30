@@ -8,12 +8,15 @@ import { Table, TableBody, TableCell, TableRow } from './ui/table'
 export async function Invites() {
   const orgSlug = await getCurrentOrgSlug()
   const permissions = await ability()
-
+  
   const { invites } = await getMemberInvites(orgSlug!)
+
+  const canCreateMemberInvite = permissions?.can('create', 'MemberInvite')
+  const canDeleteMemberInvite = permissions?.can('delete', 'MemberInvite')
 
   return (
     <div className="space-y-4">
-      {permissions?.can('create', 'MemberInvite') && (
+      {canCreateMemberInvite && (
         <Card>
           <CardHeader>
             <CardTitle>Invite member</CardTitle>
@@ -43,7 +46,7 @@ export async function Invites() {
                   </TableCell>
                   <TableCell className="py-2.5">
                     <div className="flex justify-end">
-                      {permissions?.can('delete', 'MemberInvite') && (
+                      {canDeleteMemberInvite && (
                         <RevokeInviteButton inviteId={invite.id} />
                       )}
                     </div>
