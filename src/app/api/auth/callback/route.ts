@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import { acceptInvite } from '~/http/accept-invite'
+import { acceptMemberInvite } from '~/http/accept-invite'
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
 
   if (inviteId) {
     try {
-      await acceptInvite(inviteId)
+      await acceptMemberInvite(inviteId)
       cookiesStore.delete('inviteId')
     } catch {}
   }

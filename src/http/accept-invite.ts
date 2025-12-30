@@ -1,5 +1,5 @@
 import { api } from '~/lib/api-client'
 
-export async function acceptInvite(inviteId: string): Promise<void> {
-  await api.post(`invites/${inviteId}/accept`)
+export async function acceptMemberInvite(inviteId: string): Promise<void> {
+  await api.post(`member-invites/${inviteId}/accept`)
 }

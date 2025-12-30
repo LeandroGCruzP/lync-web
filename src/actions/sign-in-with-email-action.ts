@@ -3,7 +3,7 @@
 import { HTTPError } from 'ky'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { acceptInvite } from '~/http/accept-invite'
+import { acceptMemberInvite } from '~/http/accept-invite'
 import { signInWithEmail } from '~/http/sign-in-with-email'
 import type { ActionResponse } from '~/interfaces/actions-interfaces'
 import { signInWithEmailSchema } from '~/schemas/sing-in-schemas'
@@ -37,7 +37,7 @@ export async function signInWithEmailAction(
 
     if (inviteId) {
       try {
-        await acceptInvite(inviteId)
+        await acceptMemberInvite(inviteId)
         cookiesStore.delete('inviteId')
       } catch {}
     }
