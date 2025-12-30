@@ -19,7 +19,6 @@ export function PendingInvites() {
   const [isOpen, setIsOpen] = useState(false)
 
   const { data } = useQuery({
-    enabled: isOpen,
     queryFn: getUserAuthPendingInvites,
     queryKey: ['pending-invites'],
   })
@@ -39,9 +38,15 @@ export function PendingInvites() {
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button size={'icon'} variant={'ghost'}>
+        <Button size={'icon'} variant={'ghost'} className="relative">
           <UserPlus2 className="size-4" />
           <span className="sr-only">Pending Invites</span>
+
+          {data && data.invites.length > 0 && (
+            <span className="absolute -right-0.5 -top-0.5 flex size-3 items-center justify-center rounded-full bg-destructive text-[8px] font-bold text-white">
+              {data.invites.length}
+            </span>
+          )}
         </Button>
       </PopoverTrigger>
 
