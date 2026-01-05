@@ -1,6 +1,7 @@
 import { PlusCircle } from 'lucide-react'
 import Link from 'next/link'
 import { ability } from '~/auth/auth'
+import { EventList } from '~/components/event-list'
 import { Button } from '~/components/ui/button'
 
 export default async function EventsPage({
@@ -33,6 +34,8 @@ export default async function EventsPage({
           </Button>
         )}
       </div>
+
+      <EventList />
     </div>
   )
 }
