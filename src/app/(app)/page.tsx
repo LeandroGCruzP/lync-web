@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react'
+import { PlusCircle } from 'lucide-react'
 import Link from 'next/link'
 import { EventList } from '~/components/event-list'
 import { Header } from '~/components/header'
@@ -15,7 +15,15 @@ export default async function HomePage() {
 
           <Button size="sm" asChild>
             <Link href="/create-event">
-              <Plus className="mr-2 size-4" />
+              <div
+                className="mr-2 flex items-center justify-center"
+                style={{
+                  height: 'calc(var(--spacing) * 5)',
+                  width: 'calc(var(--spacing) * 5)',
+                }}
+              >
+                <PlusCircle className="size-4" />
+              </div>
               Create event
             </Link>
           </Button>
