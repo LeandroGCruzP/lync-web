@@ -6,7 +6,7 @@ import { Button } from '~/components/ui/button'
 
 export default async function HomePage() {
   return (
-    <div className="space-y-4 pt-4">
+    <div className="space-y-4 p-4">
       <Header />
 
       <main className="mx-auto w-full max-w-[1200px] space-y-4">
