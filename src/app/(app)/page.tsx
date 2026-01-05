@@ -29,7 +29,7 @@ export default async function HomePage() {
           </Button>
         </div>
 
-        <EventList />
+        <EventList filter="standalone" />
       </main>
     </div>
   )

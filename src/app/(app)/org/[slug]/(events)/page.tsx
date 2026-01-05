@@ -35,7 +35,7 @@ export default async function EventsPage({
         )}
       </div>
 
-      <EventList />
+      <EventList organizationSlug={params.slug} />
     </div>
   )
 }

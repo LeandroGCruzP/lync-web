@@ -1,8 +1,13 @@
 import { getEvents } from '~/http/get-events'
 import { EventCard } from './event-card'
 
-export async function EventList() {
-  const { events } = await getEvents()
+interface EventListProps {
+  filter?: 'standalone'
+  organizationSlug?: string
+}
+
+export async function EventList({ filter, organizationSlug }: EventListProps) {
+  const { events } = await getEvents({ filter, organizationSlug })
 
   if (events.length === 0) {
     return (
