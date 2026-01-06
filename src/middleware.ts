@@ -1,12 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const token = request.cookies.get('token')?.value
 
   const response = NextResponse.next()
 
   if (pathname.startsWith('/org')) {
     const [, , slug] = pathname.split('/')
+
+    if (token) {
+      try {
+        const membershipResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/organizations/${slug}/membership`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        )
+
+        if (!membershipResponse.ok) {
+          return NextResponse.redirect(new URL('/', request.url))
+        }
+      } catch (err) {
+        console.error('Middleware membership check failed:', err)
+        // Optionally redirect or allow through if API is down
+      }
+    }
 
     response.cookies.set('org', slug)
   } else {
