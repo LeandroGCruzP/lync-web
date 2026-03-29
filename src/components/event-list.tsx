@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { getEvents } from '~/http/get-events'
 import { EventCard } from './event-card'
 
@@ -22,7 +23,15 @@ export async function EventList({ filter, organizationSlug }: EventListProps) {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {events.map((event) => {
-        return <EventCard key={event.id} event={event} />
+        const eventHref = event.organization
+          ? `/org/${event.organization.slug}/events/${event.slug}`
+          : `/events/${event.slug}`
+
+        return (
+          <Link href={eventHref} key={event.id}>
+            <EventCard key={event.id} event={event} />
+          </Link>
+        )
       })}
     </div>
   )
