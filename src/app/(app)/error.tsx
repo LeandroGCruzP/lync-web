@@ -1,15 +1,13 @@
 'use client'
 
-import { AlertTriangle, RefreshCw } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 import { useEffect } from 'react'
-import { Button } from '~/components/ui/button'
 
 interface ErrorPageProps {
   error: Error & { digest?: string }
-  reset: () => void
 }
 
-export default function AppError({ error, reset }: ErrorPageProps) {
+export default function AppError({ error }: ErrorPageProps) {
   useEffect(() => {
     console.error(error)
   }, [error])
@@ -25,10 +23,6 @@ export default function AppError({ error, reset }: ErrorPageProps) {
           Não foi possível conectar ao servidor. Tente novamente em instantes.
         </p>
       </div>
-      <Button variant="outline" onClick={reset}>
-        <RefreshCw className="mr-2 size-4" />
-        Tentar novamente
-      </Button>
     </div>
   )
 }
