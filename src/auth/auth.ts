@@ -1,3 +1,4 @@
+import { HTTPError } from 'ky'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getMembership } from '~/http/get-membership'
@@ -58,8 +59,11 @@ export async function auth() {
 
     return { user }
   } catch (err) {
-    console.error(err)
-  }
+    if (err instanceof HTTPError && err.response.status === 401) {
+      redirect('/api/auth/sign-out')
+    }
 
-  redirect('/api/auth/sign-out')
+    // Server error (5xx) or network error — do not sign out the user
+    throw err
+  }
 }
