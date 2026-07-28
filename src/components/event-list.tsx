@@ -5,10 +5,15 @@ import { EventCard } from './event-card'
 interface EventListProps {
   filter?: 'standalone'
   organizationSlug?: string
+  teamSlug?: string
 }
 
-export async function EventList({ filter, organizationSlug }: EventListProps) {
-  const { events } = await getEvents({ filter, organizationSlug })
+export async function EventList({
+  filter,
+  organizationSlug,
+  teamSlug,
+}: EventListProps) {
+  const { events } = await getEvents({ filter, organizationSlug, teamSlug })
 
   if (events.length === 0) {
     return (

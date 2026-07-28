@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 import { BadgeCheck, CreditCard, Trophy, Users } from 'lucide-react'
 import Image from 'next/image'
+import { isAuthenticated } from '~/auth/auth'
 import { AthleteCard } from '~/components/athlete-card'
 import { EventSchedule } from '~/components/event-schedule'
 import { EventStatsBar } from '~/components/event-stats'
@@ -11,6 +12,8 @@ import { RegisterEventForm } from '~/components/register-event-form'
 import { TicketCard } from '~/components/ticket-card'
 import { Button } from '~/components/ui/button'
 import { getEvent } from '~/http/get-event'
+import { getProfile } from '~/http/get-profile'
+import { getUserTeams } from '~/http/get-user-teams'
 import { PaymentModel, SportName } from '~/interfaces/event-interfaces'
 import { formatPrice } from '~/utils/price-utils'
 import { SPORT_IMAGES_PATHS } from '~/utils/sport-assets'
@@ -25,7 +28,22 @@ interface EventPageProps {
 
 export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params
-  const { event } = await getEvent(slug)
+  const { event, isRegistered } = await getEvent(slug)
+
+  const isLogged = await isAuthenticated()
+  let teams: any[] = []
+  let user: any = null
+
+  if (isLogged) {
+    try {
+      const profileRes = await getProfile()
+      user = profileRes.user
+      const teamsRes = await getUserTeams()
+      teams = teamsRes.teams
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   const isFree = event.paymentModel === PaymentModel.FREE
   const price = formatPrice(event.price)
@@ -276,7 +294,12 @@ export default async function EventPage({ params }: EventPageProps) {
               Preencha os dados abaixo para confirmar sua inscrição no evento.
             </p>
           </div>
-          <RegisterEventForm />
+          <RegisterEventForm
+            event={event}
+            teams={teams}
+            user={user}
+            isRegistered={isRegistered}
+          />
         </div>
       </section>
     </main>
