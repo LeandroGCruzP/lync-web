@@ -8,12 +8,24 @@ export enum PaymentModel {
   PAY_TO_REGISTER = 'PAY_TO_REGISTER',
 }
 
+export enum SportName {
+  BASKETBALL = 'BASKETBALL',
+  RUNNING = 'RUNNING',
+  SOCCER = 'SOCCER',
+  SWIMMING = 'SWIMMING',
+}
+
 export type Event = {
   description: string | null
   endDate: string | null
   id: string
   name: string
   organization: Pick<Organization, 'id' | 'name' | 'slug' | 'avatarUrl'> | null
+  owner: {
+    avatarUrl: string | null
+    id: string
+    name: string
+  }
   paymentModel: PaymentModel
   playersPerTeam: number | null
   price: number | null
@@ -21,7 +33,7 @@ export type Event = {
   slug: string
   sport: {
     id: string
-    name: string
+    name: SportName
   } | null
   startDate: string
 }

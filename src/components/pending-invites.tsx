@@ -43,7 +43,7 @@ export function PendingInvites() {
           <span className="sr-only">Pending Invites</span>
 
           {data && data.invites.length > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 flex size-3 items-center justify-center rounded-full bg-destructive text-[8px] font-bold text-white">
+            <span className="bg-destructive absolute -top-0.5 -right-0.5 flex size-3 items-center justify-center rounded-full text-[8px] font-bold text-white">
               {data.invites.length}
             </span>
           )}

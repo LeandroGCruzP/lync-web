@@ -8,7 +8,7 @@ import { Separator } from './ui/separator'
 
 export async function Header() {
   return (
-    <div className="mx-auto flex max-w-[1200px] items-center justify-between">
+    <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between rounded-2xl border border-white/5 bg-white/2 px-6 backdrop-blur-md">
       <div className="flex items-center gap-3">
         <Link href="/">
           <span className="font-bold">Lync</span>

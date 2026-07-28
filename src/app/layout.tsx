@@ -1,7 +1,13 @@
 import type { Metadata } from 'next'
+import { Outfit } from 'next/font/google'
 import { ReactNode } from 'react'
 import './globals.css'
 import { Providers } from './providers'
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+})
 
 export const metadata: Metadata = {
   description: 'Sports social network',
@@ -14,8 +20,8 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
+    <html lang="en" className={outfit.variable} suppressHydrationWarning>
+      <body className="font-sans antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>

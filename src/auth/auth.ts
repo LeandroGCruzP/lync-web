@@ -59,7 +59,10 @@ export async function auth() {
 
     return { user }
   } catch (err) {
-    if (err instanceof HTTPError && err.response.status === 401) {
+    if (
+      err instanceof HTTPError &&
+      (err.response.status === 401 || err.response.status === 400)
+    ) {
       redirect('/api/auth/sign-out')
     }
 
