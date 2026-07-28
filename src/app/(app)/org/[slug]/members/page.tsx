@@ -4,7 +4,7 @@ import { MemberList } from '~/components/member-list'
 
 export default async function MembersPage() {
   const permissions = await ability()
-  
+
   const canGetMemberInvites = permissions?.can('get', 'MemberInvite')
   const canGetMembers = permissions?.can('get', 'User')
 

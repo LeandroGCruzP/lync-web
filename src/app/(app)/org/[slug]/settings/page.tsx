@@ -16,9 +16,9 @@ export default async function SettingsPage() {
   const permissions = await ability()
 
   const { organization } = await getOrganization(orgSlug!)
-  
+
   const authOrg = organizationAuthSchema.parse(organization)
-  
+
   const canUpdateOrg = permissions?.can('update', 'Organization')
   const canShutdownOrg = permissions?.can('delete', authOrg)
 

@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableRow } from './ui/table'
 export async function Invites() {
   const orgSlug = await getCurrentOrgSlug()
   const permissions = await ability()
-  
+
   const { invites } = await getMemberInvites(orgSlug!)
 
   const canCreateMemberInvite = permissions?.can('create', 'MemberInvite')

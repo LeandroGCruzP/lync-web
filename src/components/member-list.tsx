@@ -23,7 +23,10 @@ export async function MemberList() {
 
   const authOrg = organizationAuthSchema.parse(organization)
 
-  const canTransferOwnershipOrg = permissions?.can('transfer_ownership', authOrg )
+  const canTransferOwnershipOrg = permissions?.can(
+    'transfer_ownership',
+    authOrg,
+  )
   const canRemoveUserOrg = permissions?.can('delete', 'User')
   const cannotUpdateUserOrg = permissions?.cannot('update', 'User')
 
