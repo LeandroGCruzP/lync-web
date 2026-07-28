@@ -1,10 +1,8 @@
-import { ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
 import { ReactNode } from 'react'
 import { Header } from '~/components/header'
+import { TeamBreadcrumbs } from '~/components/team-breadcrumbs'
 import { TeamTabs } from '~/components/team-tabs'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
-import { Button } from '~/components/ui/button'
 import { getProfile } from '~/http/get-profile'
 import { getTeam } from '~/http/get-team'
 
@@ -33,20 +31,8 @@ export default async function TeamLayout({
       <Header />
 
       <div className="mx-auto w-full max-w-[1200px] space-y-6 pt-4">
-        {/* Back Link */}
-        <div className="flex items-center px-4">
-          <Button
-            variant="link"
-            size="sm"
-            asChild
-            className="text-muted-foreground p-0 hover:text-white"
-          >
-            <Link href="/teams" className="flex items-center gap-1">
-              <ArrowLeft className="size-4" />
-              Voltar para Times
-            </Link>
-          </Button>
-        </div>
+        {/* Breadcrumbs */}
+        <TeamBreadcrumbs teamName={team.name} teamSlug={slug} />
 
         {/* Team Profile Header */}
         <div className="flex flex-col gap-6 border-b border-white/5 px-4 pb-8 md:flex-row md:items-center md:justify-between">
