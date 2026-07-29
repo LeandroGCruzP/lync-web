@@ -182,33 +182,41 @@ export function ProfileDropdown({
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent className="w-[200px]">
-              <DropdownMenuGroup>
-                <DropdownMenuLabel>Organizations</DropdownMenuLabel>
-                {organizations.map((organization) => {
-                  return (
-                    <DropdownMenuItem
-                      key={organization.id}
-                      asChild
-                      className="cursor-pointer"
-                    >
-                      <Link
-                        href={`/org/${organization.slug}`}
-                        onClick={() => setDropdownOpen(false)}
-                        className="flex w-full items-center"
+              <DropdownMenuGroup className="max-h-[240px] overflow-y-auto">
+                <DropdownMenuLabel>Minhas Organizações</DropdownMenuLabel>
+                {organizations.length === 0 ? (
+                  <span className="text-muted-foreground block px-2 py-1 text-xs">
+                    Nenhuma organização encontrada
+                  </span>
+                ) : (
+                  organizations.map((organization) => {
+                    return (
+                      <DropdownMenuItem
+                        key={organization.id}
+                        asChild
+                        className="cursor-pointer"
                       >
-                        <Avatar className="mr-2 size-5">
-                          {organization.avatarUrl && (
-                            <AvatarImage src={organization.avatarUrl} />
-                          )}
-                          <AvatarFallback></AvatarFallback>
-                        </Avatar>
-                        <span className="line-clamp-1">
-                          {organization.name}
-                        </span>
-                      </Link>
-                    </DropdownMenuItem>
-                  )
-                })}
+                        <Link
+                          href={`/org/${organization.slug}`}
+                          onClick={() => setDropdownOpen(false)}
+                          className="flex w-full items-center"
+                        >
+                          <Avatar className="mr-2 size-5">
+                            {organization.avatarUrl && (
+                              <AvatarImage src={organization.avatarUrl} />
+                            )}
+                            <AvatarFallback>
+                              {getInitials(organization.name)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="line-clamp-1">
+                            {organization.name}
+                          </span>
+                        </Link>
+                      </DropdownMenuItem>
+                    )
+                  })
+                )}
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild className="cursor-pointer">
@@ -218,7 +226,7 @@ export function ProfileDropdown({
                   className="flex w-full items-center"
                 >
                   <PlusCircle className="mr-2 size-4" />
-                  Create new
+                  Criar organização
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuSubContent>
