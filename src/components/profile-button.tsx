@@ -1,6 +1,7 @@
 import { auth, getCurrentOrgSlug } from '~/auth/auth'
 import { getOrganizations } from '~/http/get-organizations'
 import { getPendingTeamInvites } from '~/http/get-pending-team-invites'
+import { getUserTeams } from '~/http/get-user-teams'
 import { ProfileDropdown } from './profile-dropdown'
 
 export async function ProfileButton() {
@@ -24,12 +25,21 @@ export async function ProfileButton() {
     console.error('Failed to fetch organizations:', error)
   }
 
+  let teams: any[] = []
+  try {
+    const teamsResult = await getUserTeams()
+    teams = teamsResult.teams
+  } catch (error) {
+    console.error('Failed to fetch user teams:', error)
+  }
+
   return (
     <ProfileDropdown
       user={user}
       invitesCount={pendingInvitesCount}
       organizations={organizations}
       orgSlug={orgSlug}
+      teams={teams}
     />
   )
 }

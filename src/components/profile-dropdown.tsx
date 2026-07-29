@@ -38,10 +38,18 @@ interface OrganizationItem {
   slug: string
 }
 
+interface TeamItem {
+  avatarUrl: string | null
+  id: string
+  name: string
+  slug: string
+}
+
 interface ProfileDropdownProps {
   invitesCount: number
   organizations: OrganizationItem[]
   orgSlug: string | null
+  teams: TeamItem[]
   user: UserSession
 }
 
@@ -59,6 +67,7 @@ export function ProfileDropdown({
   invitesCount,
   organizations,
   orgSlug,
+  teams,
   user,
 }: ProfileDropdownProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -91,23 +100,75 @@ export function ProfileDropdown({
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuItem asChild className="cursor-pointer">
-          <Link
-            href="/teams"
-            onClick={() => setDropdownOpen(false)}
-            className="flex w-full items-center justify-between"
-          >
-            <div className="flex w-full items-center">
-              <Users className="mr-4 size-4" />
-              Meus Times
-            </div>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger className="cursor-pointer">
+            <Users className="mr-2 size-4" />
+            <span>Times</span>
             {invitesCount > 0 && (
-              <span className="bg-primary flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black text-black">
+              <span className="bg-primary ml-auto flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black text-black">
                 {invitesCount}
               </span>
             )}
-          </Link>
-        </DropdownMenuItem>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent className="w-[200px]">
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <Link
+                  href="/teams"
+                  onClick={() => setDropdownOpen(false)}
+                  className="flex w-full items-center"
+                >
+                  <Users className="mr-2 size-4" />
+                  Ver todos
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup className="max-h-[240px] overflow-y-auto">
+                <DropdownMenuLabel>Meus Times</DropdownMenuLabel>
+                {teams.length === 0 ? (
+                  <span className="text-muted-foreground block px-2 py-1 text-xs">
+                    Nenhum time encontrado
+                  </span>
+                ) : (
+                  teams.map((team) => (
+                    <DropdownMenuItem
+                      key={team.id}
+                      asChild
+                      className="cursor-pointer"
+                    >
+                      <Link
+                        href={`/teams/${team.slug}`}
+                        onClick={() => setDropdownOpen(false)}
+                        className="flex w-full items-center"
+                      >
+                        <Avatar className="mr-2 size-5">
+                          {team.avatarUrl && (
+                            <AvatarImage src={team.avatarUrl} />
+                          )}
+                          <AvatarFallback>
+                            {getInitials(team.name)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="line-clamp-1">{team.name}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  ))
+                )}
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <Link
+                  href="/teams/create"
+                  onClick={() => setDropdownOpen(false)}
+                  className="flex w-full items-center"
+                >
+                  <PlusCircle className="mr-2 size-4" />
+                  Criar time
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
 
         <DropdownMenuSub>
           <DropdownMenuSubTrigger className="cursor-pointer">
