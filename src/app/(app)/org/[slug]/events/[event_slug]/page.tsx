@@ -6,13 +6,14 @@ import { getUserTeams } from '~/http/get-user-teams'
 
 interface EventPageProps {
   params: Promise<{
+    event_slug: string
     slug: string
   }>
 }
 
 export default async function EventPage({ params }: EventPageProps) {
-  const { slug } = await params
-  const { event, isRegistered } = await getEvent(slug)
+  const { event_slug } = await params
+  const { event, isRegistered } = await getEvent(event_slug)
 
   const isLogged = await isAuthenticated()
   let teams: any[] = []

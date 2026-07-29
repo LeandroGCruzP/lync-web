@@ -74,6 +74,10 @@ export function RegisterEventForm({
     })
   }
 
+  const eventUrl = event.organization
+    ? `/org/${event.organization.slug}/events/${event.slug}`
+    : `/events/${event.slug}`
+
   // Case 1: User is not authenticated
   if (!user) {
     return (
@@ -97,7 +101,7 @@ export function RegisterEventForm({
             asChild
             className="h-12 rounded-xl text-sm font-bold tracking-wider uppercase"
           >
-            <Link href={`/auth/sign-in?redirect=/events/${event.slug}`}>
+            <Link href={`/auth/sign-in?redirect=${eventUrl}`}>
               Entrar na Conta
             </Link>
           </Button>
@@ -106,7 +110,7 @@ export function RegisterEventForm({
             variant="outline"
             className="h-12 rounded-xl border-white/10 text-sm font-bold tracking-wider uppercase hover:bg-white/5"
           >
-            <Link href={`/auth/sign-up?redirect=/events/${event.slug}`}>
+            <Link href={`/auth/sign-up?redirect=${eventUrl}`}>
               Criar Nova Conta
             </Link>
           </Button>

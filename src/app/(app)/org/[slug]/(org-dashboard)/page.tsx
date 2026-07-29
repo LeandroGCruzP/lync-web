@@ -7,8 +7,9 @@ import { Button } from '~/components/ui/button'
 export default async function EventsPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
+  const { slug } = await params
   const permissions = await ability()
   const canCreateEvent = permissions?.can('create', 'Event')
 
@@ -19,7 +20,7 @@ export default async function EventsPage({
 
         {canCreateEvent && (
           <Button size="sm" asChild>
-            <Link href={`/org/${params.slug}/create-event`}>
+            <Link href={`/org/${slug}/create-event`}>
               <div
                 className="mr-2 flex items-center justify-center"
                 style={{
@@ -35,7 +36,7 @@ export default async function EventsPage({
         )}
       </div>
 
-      <EventList organizationSlug={params.slug} />
+      <EventList organizationSlug={slug} />
     </div>
   )
 }
