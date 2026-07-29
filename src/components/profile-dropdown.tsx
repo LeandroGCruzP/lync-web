@@ -69,7 +69,6 @@ export function ProfileDropdown({
   user,
 }: ProfileDropdownProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  const currentOrg = organizations.find((org) => org.slug === orgSlug)
 
   return (
     <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
@@ -161,11 +160,6 @@ export function ProfileDropdown({
           <DropdownMenuSubTrigger className="cursor-pointer">
             <Building2 className="mr-2 size-4" />
             <span>Organizações</span>
-            {currentOrg && (
-              <span className="text-muted-foreground mr-1 ml-auto max-w-[80px] truncate text-xs">
-                {currentOrg.name}
-              </span>
-            )}
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent className="w-[200px]">
