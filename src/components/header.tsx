@@ -3,7 +3,6 @@ import { getOrganizations } from '~/http/get-organizations'
 import { HeaderBreadcrumbs } from './header-breadcrumbs'
 import { PendingInvites } from './pending-invites'
 import { ProfileButton } from './profile-button'
-import { ThemeSwitcher } from './theme-switcher'
 import { Separator } from './ui/separator'
 
 export async function Header() {
@@ -25,7 +24,6 @@ export async function Header() {
 
       <div className="flex items-center gap-4">
         <PendingInvites />
-        <ThemeSwitcher />
         <Separator orientation="vertical" className="h-5" />
         <ProfileButton />
       </div>
