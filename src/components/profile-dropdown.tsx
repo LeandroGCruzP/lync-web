@@ -46,7 +46,6 @@ interface TeamItem {
 }
 
 interface ProfileDropdownProps {
-  invitesCount: number
   organizations: OrganizationItem[]
   orgSlug: string | null
   teams: TeamItem[]
@@ -64,7 +63,6 @@ function getInitials(name: string) {
 }
 
 export function ProfileDropdown({
-  invitesCount,
   organizations,
   orgSlug,
   teams,
@@ -88,12 +86,6 @@ export function ProfileDropdown({
               <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
             )}
           </Avatar>
-          {invitesCount > 0 && (
-            <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
-              <span className="bg-primary absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
-              <span className="bg-primary relative inline-flex h-2.5 w-2.5 rounded-full"></span>
-            </span>
-          )}
         </div>
 
         <ChevronDown className="text-muted-foreground size-4" />
@@ -104,11 +96,6 @@ export function ProfileDropdown({
           <DropdownMenuSubTrigger className="cursor-pointer">
             <Users className="mr-2 size-4" />
             <span>Times</span>
-            {invitesCount > 0 && (
-              <span className="bg-primary ml-auto flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black text-black">
-                {invitesCount}
-              </span>
-            )}
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent className="w-[200px]">

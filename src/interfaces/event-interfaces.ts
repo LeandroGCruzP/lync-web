@@ -39,3 +39,20 @@ export type Event = {
 }
 
 export type CreateEventData = z.infer<typeof createEventSchema>
+
+export type EventInvite = {
+  author: {
+    avatarUrl: string | null
+    id: string
+    name: string | null
+  } | null
+  createdAt: string
+  email: string
+  event: {
+    id: string
+    name: string
+    slug: string
+  }
+  id: string
+  role: 'ADMIN' | 'PARTICIPANT'
+}

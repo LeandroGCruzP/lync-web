@@ -58,3 +58,18 @@ export interface TeamJoinRequest {
   user: User
   userId: string
 }
+
+export interface PendingTeamJoinRequest {
+  createdAt: string
+  id: string
+  team: {
+    id: string
+    name: string
+    slug: string
+  }
+  user: {
+    avatarUrl: string | null
+    id: string
+    name: string | null
+  }
+}
