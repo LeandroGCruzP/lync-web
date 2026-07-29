@@ -1,4 +1,6 @@
+import Link from 'next/link'
 import { ReactNode } from 'react'
+import { GuestTeamBanner } from '~/components/guest-team-banner'
 import { Header } from '~/components/header'
 import { TeamBreadcrumbs } from '~/components/team-breadcrumbs'
 import { TeamTabs } from '~/components/team-tabs'
@@ -25,6 +27,7 @@ export default async function TeamLayout({
   const isOwner = currentUser.id === team.ownerId
   const userMembership = team.players.find((p) => p.userId === currentUser.id)
   const isAdmin = userMembership?.role === 'ADMIN' || isOwner
+  const isMember = isOwner || !!userMembership
 
   return (
     <div className="min-h-screen space-y-4 bg-zinc-950 p-4 text-white">
@@ -32,7 +35,18 @@ export default async function TeamLayout({
 
       <div className="mx-auto w-full max-w-[1200px] space-y-6 pt-4">
         {/* Breadcrumbs */}
-        <TeamBreadcrumbs teamName={team.name} teamSlug={slug} />
+        <TeamBreadcrumbs
+          teamName={team.name}
+          teamSlug={slug}
+          organizationSlug={team.organization?.slug}
+        />
+
+        {!isMember && (
+          <GuestTeamBanner
+            teamId={team.id}
+            hasPendingRequest={!!team.userJoinRequest}
+          />
+        )}
 
         {/* Team Profile Header */}
         <div className="flex flex-col gap-6 border-b border-white/5 px-4 pb-8 md:flex-row md:items-center md:justify-between">
@@ -50,10 +64,26 @@ export default async function TeamLayout({
               <p className="text-muted-foreground mt-1 max-w-xl text-sm">
                 {team.description || 'Este time não possui descrição.'}
               </p>
-              <p className="mt-2 text-[10px] font-bold tracking-widest text-zinc-500 uppercase">
-                Líder: {team.owner.name} • Criado em{' '}
-                {new Date(team.createdAt).toLocaleDateString('pt-BR')}
-              </p>
+              <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-bold tracking-widest text-zinc-500 uppercase">
+                <span>Líder: {team.owner.name}</span>
+                <span>•</span>
+                <span>
+                  Criado em{' '}
+                  {new Date(team.createdAt).toLocaleDateString('pt-BR')}
+                </span>
+                {team.organization && (
+                  <>
+                    <span>•</span>
+                    <span className="text-zinc-500">Organização:</span>
+                    <Link
+                      href={`/org/${team.organization.slug}`}
+                      className="text-primary flex items-center gap-1 font-black tracking-normal normal-case hover:underline"
+                    >
+                      {team.organization.name}
+                    </Link>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>

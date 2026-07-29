@@ -1,3 +1,4 @@
+import { Organization } from './organization-interfaces'
 import { User } from './user-interfaces'
 
 export type TeamRole = 'ADMIN' | 'PLAYER'
@@ -38,9 +39,22 @@ export interface Team {
   description: string | null
   id: string
   invites?: TeamInvite[]
+  joinRequests?: TeamJoinRequest[]
   name: string
+  organization?: Pick<Organization, 'id' | 'name' | 'slug' | 'avatarUrl'> | null
   owner: User
   ownerId: string
   players: Player[]
   slug: string
+  userJoinRequest?: {
+    createdAt: string
+    id: string
+  } | null
+}
+
+export interface TeamJoinRequest {
+  createdAt: string
+  id: string
+  user: User
+  userId: string
 }

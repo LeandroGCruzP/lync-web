@@ -97,8 +97,8 @@ export function ProfileDropdown({
             onClick={() => setDropdownOpen(false)}
             className="flex w-full items-center justify-between"
           >
-            <div className="flex items-center">
-              <Users className="mr-2 size-4" />
+            <div className="flex w-full items-center">
+              <Users className="mr-4 size-4" />
               Meus Times
             </div>
             {invitesCount > 0 && (

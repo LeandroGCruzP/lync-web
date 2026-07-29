@@ -5,6 +5,23 @@ interface Response {
   teams: Team[]
 }
 
-export async function getUserTeams(): Promise<Response> {
-  return await api.get('teams').json<Response>()
+interface GetUserTeamsRequest {
+  filter?: 'standalone'
+  organizationSlug?: string
+}
+
+export async function getUserTeams(
+  params?: GetUserTeamsRequest,
+): Promise<Response> {
+  const searchParams = new URLSearchParams()
+
+  if (params?.filter) {
+    searchParams.set('filter', params.filter)
+  }
+
+  if (params?.organizationSlug) {
+    searchParams.set('organizationSlug', params.organizationSlug)
+  }
+
+  return await api.get('teams', { searchParams }).json<Response>()
 }

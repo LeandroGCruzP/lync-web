@@ -17,12 +17,16 @@ interface CreateTeamFormProps {
     name: string
   }
   isUpdating?: boolean
+  organizationId?: string | null
+  organizationSlug?: string
   teamId?: string
 }
 
 export function CreateTeamForm({
   initialData,
   isUpdating = false,
+  organizationId,
+  organizationSlug,
   teamId,
 }: CreateTeamFormProps) {
   const router = useRouter()
@@ -46,7 +50,9 @@ export function CreateTeamForm({
       setFormState(state)
 
       if (state.success && !isUpdating) {
-        router.push('/teams')
+        router.push(
+          organizationSlug ? `/org/${organizationSlug}/teams` : '/teams',
+        )
         router.refresh()
       } else if (state.success && isUpdating) {
         router.refresh()
@@ -80,6 +86,9 @@ export function CreateTeamForm({
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {organizationId && (
+          <input type="hidden" name="organizationId" value={organizationId} />
+        )}
         <div className="space-y-2">
           <Label
             htmlFor="name"

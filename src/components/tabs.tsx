@@ -20,6 +20,14 @@ export async function Tabs() {
         >
           <NavLink href={`/org/${orgSlug}`}>Events</NavLink>
         </Button>
+        <Button
+          asChild
+          variant="ghost"
+          size="sm"
+          className="text-muted-foreground data-[current=true]:text-foreground data-[current=true]:border-border border border-transparent"
+        >
+          <NavLink href={`/org/${orgSlug}/teams`}>Teams</NavLink>
+        </Button>
         {canGetMembers && (
           <Button
             asChild

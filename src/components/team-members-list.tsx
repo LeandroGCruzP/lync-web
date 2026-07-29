@@ -3,6 +3,8 @@
 import { LogOut, Mail, Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
+import { acceptTeamJoinRequestAction } from '~/actions/accept-team-join-request-action'
+import { rejectTeamJoinRequestAction } from '~/actions/reject-team-join-request-action'
 import { removePlayerAction } from '~/actions/remove-player-action'
 import { revokeTeamInviteAction } from '~/actions/revoke-team-invite-action'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
@@ -56,6 +58,32 @@ export function TeamMembersList({
         router.refresh()
       } else {
         alert(res.message ?? 'Erro ao revogar convite')
+      }
+    })
+  }
+
+  async function handleAcceptJoinRequest(requestId: string) {
+    if (!confirm('Deseja realmente aceitar a solicitação deste jogador?'))
+      return
+    startTransition(async () => {
+      const res = await acceptTeamJoinRequestAction(requestId)
+      if (res.success) {
+        router.refresh()
+      } else {
+        alert(res.message ?? 'Erro ao aceitar solicitação')
+      }
+    })
+  }
+
+  async function handleRejectJoinRequest(requestId: string) {
+    if (!confirm('Deseja realmente recusar a solicitação deste jogador?'))
+      return
+    startTransition(async () => {
+      const res = await rejectTeamJoinRequestAction(requestId)
+      if (res.success) {
+        router.refresh()
+      } else {
+        alert(res.message ?? 'Erro ao recusar solicitação')
       }
     })
   }
@@ -186,6 +214,66 @@ export function TeamMembersList({
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Pending Join Requests */}
+      {isAdmin && team.joinRequests && team.joinRequests.length > 0 && (
+        <div className="space-y-4 border-t border-white/5 pt-4">
+          <h3 className="text-md font-black tracking-wider text-white/90 uppercase italic">
+            Solicitações de Entrada Pendentes ({team.joinRequests.length})
+          </h3>
+          <div className="space-y-3">
+            {team.joinRequests.map((request) => {
+              const playerName = request.user.name ?? 'Jogador'
+              const initials = playerName.slice(0, 2).toUpperCase()
+
+              return (
+                <div
+                  key={request.id}
+                  className="flex items-center justify-between rounded-2xl border border-white/5 bg-white/2 p-4 backdrop-blur-md"
+                >
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10 border border-white/10">
+                      {request.user.avatarUrl && (
+                        <AvatarImage src={request.user.avatarUrl} />
+                      )}
+                      <AvatarFallback className="bg-zinc-800 text-white">
+                        {initials}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h4 className="font-bold text-white">{playerName}</h4>
+                      <p className="text-muted-foreground text-xs">
+                        {request.user.email}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={isPending}
+                      onClick={() => handleAcceptJoinRequest(request.id)}
+                      className="border-primary/20 text-primary hover:bg-primary/20 h-9 rounded-xl"
+                    >
+                      Aceitar
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={isPending}
+                      onClick={() => handleRejectJoinRequest(request.id)}
+                      className="h-9 rounded-xl border-white/10 hover:bg-rose-500/20 hover:text-rose-400"
+                    >
+                      Recusar
+                    </Button>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       )}

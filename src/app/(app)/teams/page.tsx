@@ -5,13 +5,15 @@ import { PendingTeamInvitesList } from '~/components/pending-team-invites-list'
 import { Button } from '~/components/ui/button'
 import { UserTeamsList } from '~/components/user-teams-list'
 import { getPendingTeamInvites } from '~/http/get-pending-team-invites'
+import { getProfile } from '~/http/get-profile'
 import { getUserTeams } from '~/http/get-user-teams'
 
 export default async function TeamsPage() {
-  // Fetch teams and invites in parallel
-  const [{ teams }, { invites }] = await Promise.all([
+  // Fetch teams, invites and profile in parallel
+  const [{ teams }, { invites }, { user: currentUser }] = await Promise.all([
     getUserTeams(),
     getPendingTeamInvites(),
+    getProfile(),
   ])
 
   return (
@@ -43,7 +45,7 @@ export default async function TeamsPage() {
           <h2 className="text-lg font-black tracking-wider text-white/90 uppercase italic">
             Equipes Ativas
           </h2>
-          <UserTeamsList teams={teams} />
+          <UserTeamsList teams={teams} currentUserId={currentUser.id} />
         </div>
       </main>
     </div>
