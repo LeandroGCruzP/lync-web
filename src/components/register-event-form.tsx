@@ -84,16 +84,18 @@ export function RegisterEventForm({
       <div className="space-y-4 py-4 text-center">
         <Alert
           variant="destructive"
-          className="border-white/5 bg-white/2 backdrop-blur-md"
+          className="flex items-center border-white/5 bg-white/2 backdrop-blur-md"
         >
           <AlertTriangle className="text-primary size-4" />
-          <AlertTitle className="font-bold text-white">
-            Autenticação necessária
-          </AlertTitle>
-          <AlertDescription className="text-muted-foreground">
-            Você precisa estar conectado à sua conta para se inscrever neste
-            evento.
-          </AlertDescription>
+          <div>
+            <AlertTitle className="font-bold text-white">
+              Autenticação necessária
+            </AlertTitle>
+            <AlertDescription className="text-muted-foreground">
+              Você precisa estar conectado à sua conta para se inscrever neste
+              evento.
+            </AlertDescription>
+          </div>
         </Alert>
 
         <div className="flex flex-col gap-3 pt-2">

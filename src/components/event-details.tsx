@@ -10,8 +10,8 @@ import { Header } from '~/components/header'
 import { RegisterEventForm } from '~/components/register-event-form'
 import { TicketCard } from '~/components/ticket-card'
 import { Button } from '~/components/ui/button'
-import { PaymentModel, SportName } from '~/interfaces/event-interfaces'
 import type { Event } from '~/interfaces/event-interfaces'
+import { PaymentModel, SportName } from '~/interfaces/event-interfaces'
 import type { Team } from '~/interfaces/team-interfaces'
 import type { User } from '~/interfaces/user-interfaces'
 import { formatPrice } from '~/utils/price-utils'
@@ -71,16 +71,29 @@ export function EventDetails({
             <div className="bg-primary mx-auto mb-6 h-1.5 w-16 rounded-full shadow-lg" />
 
             <p className="mx-auto mb-12 max-w-3xl text-center text-lg leading-relaxed font-bold text-balance text-white/90 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] md:text-xl lg:text-2xl">
-              Inscrições abertas
+              {event.accessType === 'PUBLIC_READ_ONLY'
+                ? 'Apenas Visualização'
+                : 'Inscrições abertas'}
             </p>
 
             <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
+              {event.accessType !== 'PUBLIC_READ_ONLY' && (
+                <Button
+                  size="lg"
+                  className="bg-primary text-primary-foreground shadow-primary/40 glow-primary h-16 animate-pulse rounded-2xl px-12 text-xl font-black tracking-widest uppercase shadow-2xl transition-all hover:scale-105 active:scale-95"
+                  asChild
+                >
+                  <a href="#register">Realizar Inscrição</a>
+                </Button>
+              )}
+
               <Button
                 size="lg"
-                className="bg-primary text-primary-foreground shadow-primary/40 glow-primary h-16 animate-pulse rounded-2xl px-12 text-xl font-black tracking-widest uppercase shadow-2xl transition-all hover:scale-105 active:scale-95"
+                variant="outline"
+                className="h-16 rounded-2xl border-white/20 bg-white/5 px-12 text-xl font-black tracking-widest text-white uppercase backdrop-blur-md transition-all hover:scale-105 hover:bg-white/10 active:scale-95"
                 asChild
               >
-                <a href="#register">Realizar Inscrição</a>
+                <a href="#about">Ver Informações</a>
               </Button>
 
               <Button
@@ -275,18 +288,39 @@ export function EventDetails({
               Participar
             </span>
             <h2 className="text-3xl font-black tracking-tighter text-white uppercase italic">
-              Garanta sua <span className="text-primary">Vaga</span>
+              {event.accessType === 'PUBLIC_READ_ONLY' ? (
+                <>
+                  Inscrições <span className="text-primary">Indisponíveis</span>
+                </>
+              ) : (
+                <>
+                  Garanta sua <span className="text-primary">Vaga</span>
+                </>
+              )}
             </h2>
             <p className="text-muted-foreground text-sm font-medium">
-              Preencha os dados abaixo para confirmar sua inscrição no evento.
+              {event.accessType === 'PUBLIC_READ_ONLY'
+                ? 'Este evento é apenas para visualização de informações e não aceita novas inscrições.'
+                : 'Preencha os dados abaixo para confirmar sua inscrição no evento.'}
             </p>
           </div>
-          <RegisterEventForm
-            event={event}
-            teams={teams}
-            user={user}
-            isRegistered={isRegistered}
-          />
+          {event.accessType === 'PUBLIC_READ_ONLY' ? (
+            <div className="space-y-4 py-4 text-center">
+              <div className="rounded-3xl border border-white/5 bg-white/2 p-6 text-center backdrop-blur-md">
+                <p className="text-muted-foreground/80 text-sm leading-relaxed">
+                  As inscrições para este evento estão fechadas ou são limitadas
+                  a convidados diretos pelo organizador.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <RegisterEventForm
+              event={event}
+              teams={teams}
+              user={user}
+              isRegistered={isRegistered}
+            />
+          )}
         </div>
       </section>
     </main>

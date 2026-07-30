@@ -1,5 +1,7 @@
+import { HTTPError } from 'ky'
 import { isAuthenticated } from '~/auth/auth'
 import { EventDetails } from '~/components/event-details'
+import { EventNotFound } from '~/components/event-not-found'
 import { getEvent } from '~/http/get-event'
 import { getProfile } from '~/http/get-profile'
 import { getUserTeams } from '~/http/get-user-teams'
@@ -13,29 +15,42 @@ interface EventPageProps {
 
 export default async function EventPage({ params }: EventPageProps) {
   const { event_slug } = await params
-  const { event, isRegistered } = await getEvent(event_slug)
 
-  const isLogged = await isAuthenticated()
-  let teams: any[] = []
-  let user: any = null
+  try {
+    const { event, isRegistered } = await getEvent(event_slug)
 
-  if (isLogged) {
-    try {
-      const profileRes = await getProfile()
-      user = profileRes.user
-      const teamsRes = await getUserTeams()
-      teams = teamsRes.teams
-    } catch (err) {
-      console.error(err)
+    const isLogged = await isAuthenticated()
+    let teams: any[] = []
+    let user: any = null
+
+    if (isLogged) {
+      try {
+        const profileRes = await getProfile()
+        user = profileRes.user
+        const teamsRes = await getUserTeams()
+        teams = teamsRes.teams
+      } catch (err) {
+        console.error(err)
+      }
     }
-  }
 
-  return (
-    <EventDetails
-      event={event}
-      isRegistered={isRegistered}
-      teams={teams}
-      user={user}
-    />
-  )
+    return (
+      <EventDetails
+        event={event}
+        isRegistered={isRegistered}
+        teams={teams}
+        user={user}
+      />
+    )
+  } catch (err) {
+    if (
+      err instanceof HTTPError &&
+      (err.response.status === 401 ||
+        err.response.status === 404 ||
+        err.response.status === 400)
+    ) {
+      return <EventNotFound />
+    }
+    throw err
+  }
 }

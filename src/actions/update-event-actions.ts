@@ -1,16 +1,17 @@
 'use server'
 
 import { HTTPError } from 'ky'
-import { createEvent } from '~/http/create-event'
+import { updateEvent } from '~/http/update-event'
 import type { ActionResponse } from '~/interfaces/actions-interfaces'
-import { createEventSchema } from '~/schemas/event-schemas'
+import { updateEventSchema } from '~/schemas/event-schemas'
 import { cleanFormData } from '~/utils/clean-form-data'
 
-export async function createEventAction(
+export async function updateEventAction(
+  eventId: string,
   data: FormData,
 ): Promise<ActionResponse> {
   const cleanedData = cleanFormData(data)
-  const parsedData = createEventSchema.safeParse(cleanedData)
+  const parsedData = updateEventSchema.safeParse(cleanedData)
 
   if (!parsedData.success) {
     const errors = parsedData.error.flatten().fieldErrors
@@ -23,7 +24,6 @@ export async function createEventAction(
     description,
     endDate,
     name,
-    organizationId,
     paymentModel,
     playersPerTeam,
     price,
@@ -33,17 +33,16 @@ export async function createEventAction(
   } = parsedData.data
 
   try {
-    await createEvent({
+    await updateEvent(eventId, {
       accessType,
-      description: description,
-      endDate: endDate,
+      description: description || null,
+      endDate: endDate || null,
       name,
-      organizationId: organizationId,
       paymentModel,
-      playersPerTeam: playersPerTeam,
-      price: price,
-      slots: slots,
-      sportId: sportId,
+      playersPerTeam: playersPerTeam || null,
+      price: price || null,
+      slots: slots || null,
+      sportId: sportId || null,
       startDate,
     })
   } catch (err) {
@@ -66,7 +65,7 @@ export async function createEventAction(
 
   return {
     errors: null,
-    message: 'Event created successfully',
+    message: 'Event updated successfully',
     success: true,
   }
 }

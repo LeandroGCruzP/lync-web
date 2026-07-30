@@ -10,7 +10,7 @@ import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { useFormState } from '~/hook/use-form-state'
 import { getSports } from '~/http/get-sports'
-import { PaymentModel } from '~/interfaces/event-interfaces'
+import { EventAccessType, PaymentModel } from '~/interfaces/event-interfaces'
 import { createEventSchema } from '~/schemas/event-schemas'
 import { isRequiredField } from '~/utils/zod-utils'
 import { Separator } from './ui/separator'
@@ -190,6 +190,39 @@ export function CreateEventForm({ organizationId }: EventFormProps) {
               </p>
             )}
           </div>
+        </div>
+
+        <div className="space-y-1">
+          <Label
+            required={isRequiredField(createEventSchema, 'accessType')}
+            htmlFor="accessType"
+          >
+            Access Type
+          </Label>
+          <select
+            name="accessType"
+            id="accessType"
+            className="border-input placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <option value={EventAccessType.PUBLIC_OPEN}>
+              Public (Open Registration)
+            </option>
+            <option value={EventAccessType.PUBLIC_READ_ONLY}>
+              Public (Read-Only / View Only)
+            </option>
+            <option value={EventAccessType.INVITE_ONLY}>
+              Private (Invite Only)
+            </option>
+            {organizationId && (
+              <option value={EventAccessType.MEMBERS_ONLY}>Members Only</option>
+            )}
+          </select>
+
+          {errors?.accessType && (
+            <p className="text-xs font-medium text-red-500 dark:text-red-400">
+              {errors.accessType[0]}
+            </p>
+          )}
         </div>
 
         <Separator />
